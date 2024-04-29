@@ -1,0 +1,106 @@
+//MEM_OP(int op, int location, int value)
+//0: read
+//1: write
+ASM_START
+    //pull 0x10 off stack
+    addiu $sp,$sp,-0x10
+    //store the return address to the stack
+    sd $ra, ($sp)
+
+    checkread: bne $a0, $zero, checkwrite 
+        nop
+        lw $v0, ($a1)
+        b exit
+        nop
+    checkwrite: bne $a0, 0x1, exit
+        nop
+        sw $a2, ($a1)
+        b exit
+        nop
+
+    //load return address off the stack
+    exit: ld $ra, ($sp)
+    //add 0x10 back to the stack
+    addiu $sp,$sp,0x10
+    //return
+    jr $ra
+ASM_END
+
+//BIT_OP(int op, int value1 , int value2)
+//0: and
+//1: or
+//2: xor
+//3: nor
+//4: not
+//5: shift left
+//6: shift right
+ASM_START
+    //pull 0x10 off stack
+    addiu $sp,$sp,-0x10
+    //store the return address to the stack
+    sd $ra, ($sp)
+    and: bne $a0, $zero, or
+        nop
+        and $v0, $a1, $a2
+        b exit
+        nop
+    or: bne $a0, 0x1, xor
+        nop
+        or $v0, $a1, $a2
+        b exit
+    xor: bne $a0, 0x2, nor
+        nop
+        xor $v0, $a1, $a2
+        b exit
+        nop
+    nor: bne $a0, 0x3, not
+        nop
+        nor $v0, $a1, $a2
+        b exit
+        nop
+    not: bne $a0, 0x4, sll
+        nop
+        not $v0, $a1, $a2
+        b exit
+        nop
+    sll: bne $a0, 0x5, srl
+        nop
+        sll $v0, $a1, $a2
+        b exit
+        nop
+    srl: bne $a0, 0x6, exit
+        nop
+        srl $v0, $a1, $a2
+        b exit
+        nop
+    //load return address off the stack
+    exit: ld $ra, ($sp)
+    //add 0x10 back to the stack
+    addiu $sp,$sp,0x10
+    //return
+    jr $ra
+ASM_END
+
+//CALL_FUNC(int function, int param 1, int param 2, int param 3)
+//limit 3 parameters unless flow supports t registers for calls
+ASM_START
+    //pull 0x10 off stack
+    addiu $sp,$sp,-0x10
+    //store the return address to the stack
+    sd $ra, ($sp)
+    //move function location out
+    move $a0, $t9
+    //shift down remaining registers
+    move $a1, $a0
+    move $a2, $a1
+    move $a3, $a2
+    //call function
+    jal $t9
+    nop
+    //load return address off the stack
+    ld $ra, ($sp)
+    //add 0x10 back to the stack
+    addiu $sp,$sp,0x10
+    //return
+    jr $ra
+ASM_END

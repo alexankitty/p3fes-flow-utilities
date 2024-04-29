@@ -1,0 +1,46 @@
+const int READ = 0;
+const int WRITE = 1;
+
+const int AND = 0;
+const int OR = 1;
+const int XOR = 2;
+const int NOR = 3;
+const int NOT = 4;
+const int SLL = 5;
+const int SRL = 6;
+
+int read_memory(int addr){
+    return FUNC_XXXX(READ, addr);
+}
+
+void write_memory(int addr, int value){
+    FUNC_XXXX(WRITE, addr);
+}
+
+int get_and(int value1, int value2){
+    return FUNC_XXXX(AND, value1, value2);
+}
+
+int get_or(int value1, int value2){
+    return FUNC_XXXX(OR, value1, value2);
+}
+
+int get_xor(int value1, int value2){
+    return FUNC_XXXX(XOR, value1, value2);
+}
+
+int get_nor(int value1, int value2){
+    return FUNC_XXXX(NOR, value1, value2);
+}
+
+int get_not(int value1, int value2){
+    return FUNC_XXXX(NOT, value1, value2);
+}
+
+int get_sll(int value1, int value2){
+    return FUNC_XXXX(SLL, value1, value2);
+}
+
+int get_srl(int value1, int value2){
+    return FUNC_XXXX(SRL, value1, value2);
+}
