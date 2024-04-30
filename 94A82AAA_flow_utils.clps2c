@@ -1,7 +1,7 @@
 //MEM_OP(int op, int location, int value)
 //0: read
 //1: write
-ASM_START
+ASM_START 0x0
     //pull 0x10 off stack
     addiu $sp,$sp,-0x10
     //store the return address to the stack
@@ -24,6 +24,7 @@ ASM_START
     addiu $sp,$sp,0x10
     //return
     jr $ra
+    nop
 ASM_END
 
 //BIT_OP(int op, int value1 , int value2)
@@ -34,7 +35,7 @@ ASM_END
 //4: not
 //5: shift left
 //6: shift right
-ASM_START
+ASM_START 0x100
     //pull 0x10 off stack
     addiu $sp,$sp,-0x10
     //store the return address to the stack
@@ -60,7 +61,7 @@ ASM_START
         nop
     not: bne $a0, 0x4, sll
         nop
-        not $v0, $a1, $a2
+        not $v0, $a1
         b exit
         nop
     sll: bne $a0, 0x5, srl
@@ -79,11 +80,12 @@ ASM_START
     addiu $sp,$sp,0x10
     //return
     jr $ra
+    nop
 ASM_END
 
 //CALL_FUNC(int function, int param 1, int param 2, int param 3)
 //limit 3 parameters unless flow supports t registers for calls
-ASM_START
+ASM_START 0x200
     //pull 0x10 off stack
     addiu $sp,$sp,-0x10
     //store the return address to the stack
@@ -103,4 +105,5 @@ ASM_START
     addiu $sp,$sp,0x10
     //return
     jr $ra
+    nop
 ASM_END

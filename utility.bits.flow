@@ -1,0 +1,35 @@
+const int AND = 0;
+const int OR = 1;
+const int XOR = 2;
+const int NOR = 3;
+const int NOT = 4;
+const int SLL = 5;
+const int SRL = 6;
+
+int and_bits(int value1, int value2){
+    return FUNC_XXXX(AND, value1, value2);
+}
+
+int or_bits(int value1, int value2){
+    return FUNC_XXXX(OR, value1, value2);
+}
+
+int xor_bits(int value1, int value2){
+    return FUNC_XXXX(XOR, value1, value2);
+}
+
+int nor_bits(int value1, int value2){
+    return FUNC_XXXX(NOR, value1, value2);
+}
+
+int not_bits(int value1){
+    return FUNC_XXXX(NOT, value1, value2);
+}
+
+int sll_bits(int value1, int value2){
+    return FUNC_XXXX(SLL, value1, value2);
+}
+
+int srl_bits(int value1, int value2){
+    return FUNC_XXXX(SRL, value1, value2);
+}
