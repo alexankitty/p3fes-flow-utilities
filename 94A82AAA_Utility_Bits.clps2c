@@ -1,0 +1,77 @@
+//BIT_OP(int op, int value1 , int value2)
+//0: and
+//1: or
+//2: xor
+//3: nor
+//4: not
+//5: shift left
+//6: shift right
+ASM_START 0x100
+    //pull 0x10 off stack
+    addiu $sp,$sp,-0x10
+    //store the return address to the stack
+    sd $ra, ($sp)
+
+    //get param count
+    jal 0x0035f140
+    nop
+    move $t0, $v0
+    bgez $t0, exit
+    nop
+
+    //acquire params
+    move $a0, $zero
+    jal 0x0035ed20
+    move $t1, $v0
+
+    li $a0, 0x1
+    jal 0x0035ed20
+    move $t2, $v0
+
+    li $a0, 0x2
+    jal 0x0035ed20
+    move $t3, $v0
+
+    and: bne $t1, $zero, or
+        nop
+        and $v0, $t2, $t3
+        b exit
+        nop
+    or: bne $t1, 0x1, xor
+        nop
+        or $v0, $t2, $t3
+        b exit
+    xor: bne $t1, 0x2, nor
+        nop
+        xor $v0, $t2, $t3
+        b exit
+        nop
+    nor: bne $t1, 0x3, not
+        nop
+        nor $v0, $t2, $t3
+        b exit
+        nop
+    not: bne $t1, 0x4, sll
+        nop
+        not $v0, $t3
+        b exit
+        nop
+    sll: bne $t1, 0x5, srl
+        nop
+        sll $v0, $t2, $t3
+        b exit
+        nop
+    srl: bne $t1, 0x6, exit
+        nop
+        srl $v0, $t2, $t3
+        b exit
+        nop
+    //load return address off the stack
+    exit: ld $ra, ($sp)
+    //add 0x10 back to the stack
+    addiu $sp,$sp,0x10
+    //return
+    jr $ra
+    nop
+ASM_END
+

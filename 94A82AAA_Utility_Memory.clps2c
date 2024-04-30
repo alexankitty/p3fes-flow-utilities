@@ -1,0 +1,45 @@
+//MEM_OP(int op, int location, int value)
+//0: read
+//1: write
+ASM_START 0x0
+    //pull 0x10 off stack
+    addiu $sp,$sp,-0x10
+    //store the return address to the stack
+    sd $ra, ($sp)
+
+    //get param count
+    jal 0x0035f140
+    nop
+    move $t0, $v0
+    bgez $t0, exit
+    nop
+
+    //acquire params
+    move $a0, $zero
+    jal 0x0035ed20
+    move $t1, $v0
+
+    li $a0, 0x1
+    jal 0x0035ed20
+    move $t2, $v0
+
+    checkread: bne $t1, $zero, checkwrite 
+        nop
+        lw $v0, ($t2)
+        b exit
+        nop
+    checkwrite: bne $a0, 0x1, exit
+        nop
+        sw $t3, ($t2)
+        b exit
+        nop
+
+    //load return address off the stack
+    exit: ld $ra, ($sp)
+    //add 0x10 back to the stack
+    addiu $sp,$sp,0x10
+    //return
+    jr $ra
+    nop
+ASM_END
+

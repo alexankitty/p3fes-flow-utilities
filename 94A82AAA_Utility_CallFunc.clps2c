@@ -1,0 +1,79 @@
+//CALL_FUNC(int function, int param 1, int param 2, int param 3...)
+ASM_START 0x200
+    //pull 0x10 off stack
+    addiu $sp,$sp,-0x10
+    //store the return address to the stack
+    sd $ra, ($sp)
+
+    //acquire params - first parameter needs to be last to avoid an overwrite
+    move $a0, $zero
+    jal 0x0035ed20
+    move $s0, $v0
+
+    li $a0, 0x2
+    jal 0x0035ed20
+    move $a1, $v0
+
+    li $a0, 0x3
+    jal 0x0035ed20
+    move $a2, $v0
+
+    li $a0, 0x4
+    jal 0x0035ed20
+    move $a3, $v0
+
+    li $a0, 0x5
+    jal 0x0035ed20
+    move $t0, $v0
+
+    li $a0, 0x6
+    jal 0x0035ed20
+    move $t1, $v0
+
+    li $a0, 0x7
+    jal 0x0035ed20
+    move $t2, $v0
+
+    li $a0, 0x8
+    jal 0x0035ed20
+    move $t3, $v0
+
+    li $a0, 0x9
+    jal 0x0035ed20
+    move $t4, $v0
+
+    li $a0, 0x10
+    jal 0x0035ed20
+    move $t5, $v0
+
+    li $a0, 0x11
+    jal 0x0035ed20
+    move $t6, $v0
+
+    li $a0, 0x12
+    jal 0x0035ed20
+    move $t7, $v0
+
+    li $a0, 0x13
+    jal 0x0035ed20
+    move $t8, $v0
+
+    li $a0, 0x14
+    jal 0x0035ed20
+    move $t9, $v0
+
+    li $a0, 0x1
+    jal 0x0035ed20
+    move $a0, $v0
+
+    //call function
+    jal $s0
+    nop
+    //load return address off the stack
+    ld $ra, ($sp)
+    //add 0x10 back to the stack
+    addiu $sp,$sp,0x10
+    //return
+    jr $ra
+    nop
+ASM_END
