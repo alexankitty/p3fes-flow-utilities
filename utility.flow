@@ -13,8 +13,18 @@ int read_memory(int addr){
     return FUNC_XXXX(READ, addr);
 }
 
+int read_from_ptr(int addr){
+    int ptr = read_memory(addr);
+    return read_memory(ptr);
+}
+
 void write_memory(int addr, int value){
     FUNC_XXXX(WRITE, addr);
+}
+
+void write_to_ptr(int addr, int value){
+    int ptr = read_memory(addr);
+    write_memory(ptr, value);
 }
 
 int get_and(int value1, int value2){
@@ -43,4 +53,12 @@ int get_sll(int value1, int value2){
 
 int get_srl(int value1, int value2){
     return FUNC_XXXX(SRL, value1, value2);
+}
+
+int get_field_major(){
+    return read_from_ptr(0x0095afc0);
+}
+
+int get_field_minor(){
+    return read_from_ptr(0x0095afc0);
 }
