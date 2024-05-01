@@ -8,62 +8,77 @@ ASM_START 0x200
     //acquire params - first parameter needs to be last to avoid an overwrite
     move $a0, $zero
     jal 0x0035ed20
+    nop
     move $s0, $v0
 
     li $a0, 0x2
     jal 0x0035ed20
+    nop
     move $a1, $v0
 
     li $a0, 0x3
     jal 0x0035ed20
+    nop
     move $a2, $v0
 
     li $a0, 0x4
     jal 0x0035ed20
+    nop
     move $a3, $v0
 
     li $a0, 0x5
     jal 0x0035ed20
+    nop
     move $t0, $v0
 
     li $a0, 0x6
     jal 0x0035ed20
+    nop
     move $t1, $v0
 
     li $a0, 0x7
     jal 0x0035ed20
+    nop
     move $t2, $v0
 
     li $a0, 0x8
     jal 0x0035ed20
+    nop
     move $t3, $v0
 
     li $a0, 0x9
     jal 0x0035ed20
+    nop
     move $t4, $v0
 
     li $a0, 0x10
     jal 0x0035ed20
+    nop
     move $t5, $v0
 
     li $a0, 0x11
     jal 0x0035ed20
+    nop
     move $t6, $v0
 
     li $a0, 0x12
     jal 0x0035ed20
+    nop
     move $t7, $v0
 
     li $a0, 0x13
     jal 0x0035ed20
+    nop
     move $t8, $v0
 
     li $a0, 0x14
     jal 0x0035ed20
+    nop
     move $t9, $v0
 
     li $a0, 0x1
     jal 0x0035ed20
+    nop
     move $a0, $v0
 
     //call function
